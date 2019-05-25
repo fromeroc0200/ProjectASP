@@ -9,13 +9,25 @@ using System.Web.UI.WebControls;
 using System.Threading.Tasks;
 using Nest;
 using Elasticsearch.Net;
+using BikeStore.Service;
+using Microsoft.Practices.ServiceLocation;
 
 namespace BikeStore.Web.Modules.Login
 {
     public partial class Login : System.Web.UI.Page
     {
+    
+        IUnitOfWork _unitOfWork { get; set; }
+        
         protected void Page_Load(object sender, EventArgs e)
         {
+            // UnitOfWork unitOfWork = new UnitOfWork();
+            //UserModel usr = new UserModel()
+            // {
+            //     Name = "fer",
+            //     Password = "admin"};
+            // //var result =  unitOfWork.Users.Get();
+            //Response.Write(@"<script language='javascript'>alert('Message: \n" + "OK Process!" + " .');</script>");
 
         }
 
@@ -26,35 +38,15 @@ namespace BikeStore.Web.Modules.Login
         public static ElasticClient client;
         
         [WebMethod]
-        public static ProcessResult<List<Users>> LoginUser(string user, string password)
+        public static ProcessResult<IEnumerable<UserModel>> LoginUser(string user, string password)
         {
-            ProcessResult<List<Users>> result = new ProcessResult<List<Users>>();
+            ProcessResult<IEnumerable<UserModel>> result = new ProcessResult<IEnumerable<UserModel>>();
+            UnitOfWork unitOfWork = new UnitOfWork();
 
+            UserModel usr = new UserModel() { Name = user, Password = password };
+            result = unitOfWork.Security.ValidateUser(usr);
             
-            node = new Uri("http://localhost:9200");
-            settings = new ConnectionSettings(node);
-            
-            settings.DefaultIndex("users");
 
-            //settings.ClientCertificate(GetCertificateFromStore());
-            //settings.BasicAuthentication(Username, Password);
-            settings.ThrowExceptions();
-            settings.PrettyJson();
-            settings.DisableDirectStreaming();
-            settings.DefaultFieldNameInferrer(p => p);
-
-            client = new ElasticClient(settings);
-            
-            var cli = new ElasticLowLevelClient();
-            if (client.IndexExists("users").Exists)
-            {
-                var res = client.Search<Users>(s=>s.Source(true));
-
-
-                result.Content = res.Documents.ToList(); //res.Hits.Select(c => c.Source).ToList<Users>();
-                var response = client.Search<dynamic>(c => c.Index("users"));
-            }
-            result.HasError = false;
             return result;
         }
     }

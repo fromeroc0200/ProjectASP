@@ -143,6 +143,7 @@
     <Content Include="Assets\Content\bootstrap-reboot.min.css" />
     <Content Include="Assets\Content\bootstrap.css" />
     <Content Include="Assets\Content\bootstrap.min.css" />
+    <Content Include="Global.asax" />
     <Content Include="Modules\Dashboard\Dashboard.aspx" />
     <Content Include="Modules\Login\Login.aspx" />
     <Content Include="Assets\Scripts\bootstrap.bundle.js" />
@@ -195,7 +196,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\UnityWebFormsStart.cs" />
-    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="UnityWebFormsStart.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Dashboard\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -243,9 +247,17 @@
     <Folder Include="Modules\Products\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BikeStore.Data.Repository\BikeStore.Data.Repository.csproj">
+      <Project>{E09AB888-58A8-40C9-A4D5-1076E084F60C}</Project>
+      <Name>BikeStore.Data.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BikeStore.Data\BikeStore.Data.csproj">
       <Project>{5dfa4f7f-e37d-4297-b564-4474b3724d14}</Project>
       <Name>BikeStore.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikeStore.Service\BikeStore.Service.csproj">
+      <Project>{5fde7e16-529f-46a0-a000-01ee22d75e76}</Project>
+      <Name>BikeStore.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

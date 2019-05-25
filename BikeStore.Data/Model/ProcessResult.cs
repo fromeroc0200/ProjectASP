@@ -9,7 +9,7 @@ namespace BikeStore.Data.Model
     {
         public T Content { get; set; }
         public bool HasError { get; set; }
-        public string ErrorDescription { get; set; }
+        public string Description { get; set; }
         
     }
 

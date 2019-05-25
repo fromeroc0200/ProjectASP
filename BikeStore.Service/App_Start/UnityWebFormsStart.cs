@@ -1,10 +1,10 @@
 using System.Web;
-using BikeStore.Service;
+
 using Microsoft.Practices.Unity;
 using Unity.WebForms;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod( typeof(BikeStore.Web.App_Start.UnityWebFormsStart), "PostStart" )]
-namespace BikeStore.Web.App_Start
+[assembly: WebActivatorEx.PostApplicationStartMethod( typeof(BikeStore.Service.App_Start.UnityWebFormsStart), "PostStart" )]
+namespace BikeStore.Service.App_Start
 {
 	/// <summary>
 	///		Startup class for the Unity.WebForms NuGet package.
@@ -32,8 +32,7 @@ namespace BikeStore.Web.App_Start
 		/// <param name="container">Instance of the container to populate.</param>
 		private static void RegisterDependencies( IUnityContainer container )
 		{
-            container.RegisterType<IUnitOfWork, UnitOfWork>();
-            // TODO: Add any dependencies needed here
-        }
+			// TODO: Add any dependencies needed here
+		}
 	}
 }

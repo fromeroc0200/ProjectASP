@@ -6,7 +6,7 @@
     <div class="cotainer">
         <div class="row justify-content-center">
             <div class="col-xs-12">
-              <div class="alert alert-danger">
+              <div class="alert alert-danger" style="display:none">
                 <p>Invalid User Name/Password.</p>
               </div>
             </div>
@@ -76,8 +76,16 @@
             data: JSON.stringify({ user: usr, password: pass }),
             async: true,
             success: function (result) {
-                alert('success ' + result.d);
-
+                if (result.d.HasError) {
+                    $(".alert").show();
+                    
+                } else {
+                    $(".alert").hide();
+                    alert(result.d.Description);
+                }
+                
+                    
+                
             },
             error: function (result) {
                 alert('error occured: ' + result.responseText);
