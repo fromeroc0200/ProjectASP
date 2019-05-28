@@ -22,13 +22,11 @@ namespace BikeStore.Service.Services
         private List<ProductModel> BuildProductsObj()
         {
             List<ProductModel> products = new List<ProductModel>();
+            for (int i = 1; i <= 1000; i++)
+            {
+                products.Add(new ProductModel() { product_id = i, product_name = $"bike {i}", list_price = i, model_year = i, brand_id = i, category_id = 1 });
+            }
 
-            products.Add(new ProductModel() { product_id = 1, product_name = "bike 2000", list_price = 10, model_year = 1990, brand_id = 1, category_id = 1 });
-            products.Add(new ProductModel() { product_id = 2, product_name = "bike 20", list_price = 100, model_year = 1991, brand_id = 1, category_id = 1 });
-            products.Add(new ProductModel() { product_id = 3, product_name = "bike 1800", list_price = 50, model_year = 1998, brand_id = 1, category_id = 1 });
-            products.Add(new ProductModel() { product_id = 4, product_name = "bike V2", list_price = 80, model_year = 2000, brand_id = 1, category_id = 1 });
-            products.Add(new ProductModel() { product_id = 5, product_name = "bike M400", list_price = 120, model_year = 1990, brand_id = 1, category_id = 1 });
-            products.Add(new ProductModel() { product_id = 6, product_name = "bike F100", list_price = 8, model_year = 2019, brand_id = 1, category_id = 1 });
 
 
             return products;

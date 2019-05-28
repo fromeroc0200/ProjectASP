@@ -100,36 +100,35 @@
     
 <body>
     <form id="form1" runat="server">
-    <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
-        <div class="container">
-            <a class="navbar-brand" href='<%=ResolveUrl("~/Modules/Dashboard/Dashboard.aspx") %>' >Bike Store</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <ul class="navbar-nav ml-auto">
-                <li>
-                    <a class="nav-link" id="lnkProduct" runat="server" visible="false" href="~/Modules/Administration/Products/Products.aspx" >Products</a>
-                </li>
-                <li>
-                    <a class="nav-link" id="lnkCategories" runat="server" visible="false" href="~/Modules/Administration/Categories/Categories.aspx">Categories</a>
-                </li>
-            </ul>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
+            <div class="container">
+                <a class="navbar-brand" href='<%=ResolveUrl("~/Modules/Dashboard/Dashboard.aspx") %>'>Bike Store</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" id="lnkLogin" runat="server" visible="true" href="~/Modules/Login/Login.aspx">Login</a>
-                        <asp:LinkButton Visible="false" class="nav-link" ID="lnkLogout"   Text="Logout" runat="server" OnClick="lnkLogout_Click" />
-                        
+                    <li>
+                        <a class="nav-link" id="lnkProduct" runat="server" visible="false" href="~/Modules/Administration/Products/Products.aspx">Products</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="lnkRegister" runat="server" visible="true" href="#">Register</a>
+                    <li>
+                        <a class="nav-link" id="lnkCategories" runat="server" visible="false" href="~/Modules/Administration/Categories/Categories.aspx">Categories</a>
                     </li>
                 </ul>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" id="lnkLogin" runat="server" visible="true" href="~/Modules/Login/Login.aspx">Login</a>
+                            <asp:LinkButton Visible="false" class="nav-link" ID="lnkLogout" Text="Logout" runat="server" OnClick="lnkLogout_Click" />
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="lnkRegister" runat="server" visible="true" href="#">Register</a>
+                        </li>
+                    </ul>
 
+                </div>
             </div>
-        </div>
-    </nav>
-    
+        </nav>
+
         <div class="container">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>

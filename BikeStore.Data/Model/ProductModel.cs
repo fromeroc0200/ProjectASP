@@ -14,7 +14,7 @@ namespace BikeStore.Data.Model
         public int brand_id { get; set; }
         
         public int category_id { get; set; }
-        public short model_year { get; set; }
+        public int model_year { get; set; }
         public decimal list_price { get; set; }
         public BrandModel brands { get; set; }
         public CategoryModel categories { get; set; }

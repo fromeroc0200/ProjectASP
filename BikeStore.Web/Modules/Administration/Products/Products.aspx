@@ -54,11 +54,11 @@
     </div>
     <div class="cotainer">
         <div class="row justify-content-center">
-    <asp:GridView ID="grdProducts" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered table-hover" >
+    <asp:GridView ID="grdProducts" runat="server" AutoGenerateColumns="false" PageSize="10" AllowPaging="true" AllowSorting="true" CssClass="table table-striped table-bordered table-hover" OnPageIndexChanging="grdProducts_PageIndexChanging" >
         <Columns>
             <asp:BoundField DataField="product_name" HeaderText="Name"/>
-            <asp:BoundField DataField="list_price" HeaderText="Password"/>
-            <asp:BoundField DataField="model_year" HeaderText="CreateDate"/>
+            <asp:BoundField DataField="list_price" HeaderText="Price"/>
+            <asp:BoundField DataField="model_year" HeaderText="Model"/>
             <asp:TemplateField>
                 <ItemTemplate>
                     <asp:Button Text="Edit" runat = "server" CommandArgument='<%# Eval("product_id") %>' OnClick="btnDelProduct_Click" />

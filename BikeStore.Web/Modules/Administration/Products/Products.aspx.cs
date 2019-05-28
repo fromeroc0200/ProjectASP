@@ -65,5 +65,14 @@ namespace BikeStore.Web.Modules.Administration.Products
             int userId = Convert.ToInt16((sender as Button).CommandArgument);
             Response.Write(@"<script language='javascript'>alert('Message: \n" + "product id = " + userId + " .');</script>");
         }
+
+        protected void grdProducts_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            ProductsService productsService = new ProductsService();
+            grdProducts.PageIndex = e.NewPageIndex;
+            ProcessResult<List<ProductModel>> result = productsService.Get();
+            grdProducts.DataSource = result.Content;
+            grdProducts.DataBind();
+        }
     }
 }
