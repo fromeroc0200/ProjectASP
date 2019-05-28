@@ -5,11 +5,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace BikeStore.Web.Modules.Dashboard
+namespace BikeStore.Web.Modules.Administration.Categories
 {
-    public partial class Dashboard : System.Web.UI.Page
+    public partial class Categories : System.Web.UI.Page
     {
-        protected override void OnInit(EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (HttpContext.Current.Session["UserMembership"] == null)
             {
@@ -20,7 +20,7 @@ namespace BikeStore.Web.Modules.Dashboard
                 var link = Master.FindControl("lnkProduct");
                 link.Visible = true;
                 link = Master.FindControl("lnkCategories");
-                link.Visible = true;               
+                link.Visible = true;
                 link = Master.FindControl("lnkLogout");
                 link.Visible = true;
                 link = Master.FindControl("lnkLogin");
@@ -28,11 +28,6 @@ namespace BikeStore.Web.Modules.Dashboard
                 link = Master.FindControl("lnkRegister");
                 link.Visible = false;
             }
-        }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            
         }
     }
 }

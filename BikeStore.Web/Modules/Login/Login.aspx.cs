@@ -38,14 +38,18 @@ namespace BikeStore.Web.Modules.Login
         public static ElasticClient client;
         
         [WebMethod]
-        public static ProcessResult<IEnumerable<UserModel>> LoginUser(string user, string password)
+        public static ProcessResult<UserModel> LoginUser(string userName, string password)
         {
-            ProcessResult<IEnumerable<UserModel>> result = new ProcessResult<IEnumerable<UserModel>>();
+            ProcessResult<UserModel> result = new ProcessResult<UserModel>();
             UnitOfWork unitOfWork = new UnitOfWork();
 
-            UserModel usr = new UserModel() { Name = user, Password = password };
+            UserModel usr = new UserModel() { Name = userName, Password = password };
             result = unitOfWork.Security.ValidateUser(usr);
-            
+            if(!result.HasError)
+            {
+                UserModel user = result.Content;
+                HttpContext.Current.Session["UserMembership"] = user;
+            }
 
             return result;
         }

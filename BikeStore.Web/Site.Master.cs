@@ -11,7 +11,13 @@ namespace BikeStore.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+        }
 
+        protected void lnkLogout_Click(object sender, EventArgs e)
+        {
+            HttpContext.Current.Session["UserMembership"] = null;
+            Response.Redirect(ResolveUrl("~/Modules/Login/Login.aspx"));
         }
     }
 }

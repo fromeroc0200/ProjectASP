@@ -5,6 +5,6 @@ namespace BikeStore.Service.Contracts
 {
     public interface ISecurityService
     {
-        ProcessResult<IEnumerable<UserModel>> ValidateUser(UserModel user);
+        ProcessResult<UserModel> ValidateUser(UserModel user);
     }
 }

@@ -3,11 +3,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <main class="login-form">
-    <div class="cotainer">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-xs-12">
               <div class="alert alert-danger" style="display:none">
-                <p>Invalid User Name/Password.</p>
+                <p id="lblError">Invalid User Name/Password.</p>
               </div>
             </div>
           </div>
@@ -67,21 +67,38 @@
         /*Getting data*/
         var usr = $('#userName').val();
         var pass = $('#password').val();
+        if (usr === '' && pass === '') {
+            $('#lblError').text("Username and password must not be empty");
+            $(".alert").show();
+            return;
+        } else if(usr === '') {
+            $('#lblError').text("The username must not be empty");
+            $(".alert").show();
+            return;
+        } else if(pass === '') {
+            $('#lblError').text("The password must not be empty");
+            $(".alert").show();
+            return;
+        }
+
+
+
         var url = "<%= ResolveClientUrl("~/Modules/Login/Login.aspx/LoginUser") %>";
         $.ajax({
             type: "POST",
             url: url,
             contentType: "application/json",
             dataType: "json",
-            data: JSON.stringify({ user: usr, password: pass }),
+            data: JSON.stringify({ userName: usr, password: pass }),
             async: true,
             success: function (result) {
                 if (result.d.HasError) {
+                    $('#lblError').text("Invalid User Name/Password.");
                     $(".alert").show();
                     
                 } else {
                     $(".alert").hide();
-                    alert(result.d.Description);
+                    window.location = '<%=ResolveUrl("~/Modules/Dashboard/Dashboard.aspx")%>';
                 }
                 
                     
