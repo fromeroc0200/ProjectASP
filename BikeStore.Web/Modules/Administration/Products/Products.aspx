@@ -45,6 +45,16 @@
             border-color: #ddd;
         }
     </style>
+
+ <%-- <script type="text/javascript">
+        $(function () {
+            $('[id*=grdProducts]').prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
+                "responsive": true,
+                "sPaginationType": "full_numbers"
+            });
+        });
+    </script>--%>
+   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row">
@@ -54,18 +64,67 @@
     </div>
     <div class="cotainer">
         <div class="row justify-content-center">
-    <asp:GridView ID="grdProducts" runat="server" AutoGenerateColumns="false" PageSize="10" AllowPaging="true" AllowSorting="true" CssClass="table table-striped table-bordered table-hover" OnPageIndexChanging="grdProducts_PageIndexChanging" >
-        <Columns>
-            <asp:BoundField DataField="product_name" HeaderText="Name"/>
-            <asp:BoundField DataField="list_price" HeaderText="Price"/>
-            <asp:BoundField DataField="model_year" HeaderText="Model"/>
-            <asp:TemplateField>
+
+            <asp:GridView ID="grdProducts" runat="server" AutoGenerateColumns="false" PageSize="20" AllowPaging="true" AllowSorting="true"
+                CssClass="table table-striped table-bordered table-hover"
+                DataKeyNames="product_id"
+                OnPageIndexChanging="grdProducts_PageIndexChanging"
+                OnSorting="grdProducts_Sorting"
+                OnRowEditing="grdProducts_RowEditing"
+                OnRowCancelingEdit="grdProducts_RowCancelingEdit"
+                OnRowDeleting="grdProducts_RowDeleting"
+                OnRowUpdating="grdProducts_RowUpdating">
+                <%--<asp:GridView ID="grdProducts" runat="server" AutoGenerateColumns="false" class="table table-striped">--%>
+                <Columns>
+                    <asp:TemplateField HeaderText="S.No." ItemStyle-HorizontalAlign="Center">
+                        <ItemTemplate>
+                            <%#Container.DataItemIndex+1%>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Employee Name">
+                        <ItemTemplate>
+                            <%#Eval("product_name")%>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="txtProduct_name" runat="server" Text='<%#Eval("product_name") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Price">
+                        <ItemTemplate>
+                            <%#Eval("list_price")%>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="txtListPrice" runat="server" Text='<%#Eval("list_price") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Model Year">
+                        <ItemTemplate>
+                            <%#Eval("model_year")%>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="txtModelYear" runat="server" Text='<%#Eval("model_year") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                    </asp:TemplateField>
+
+                    <%--<asp:TemplateField>
                 <ItemTemplate>
-                    <asp:Button Text="Edit" runat = "server" CommandArgument='<%# Eval("product_id") %>' OnClick="btnDelProduct_Click" />
+                    <asp:LinkButton Text="Edit" runat = "server" CommandArgument='<%# Eval("product_id") %>' OnClick="btnEditProduct_Click" />
                 </ItemTemplate>
             </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
-            </div>
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:LinkButton Text="Delete" runat = "server" CommandArgument='<%# Eval("product_id") %>' OnClick="btnDelProduct_Click" />
+                </ItemTemplate>
+            </asp:TemplateField>--%>
+                    <asp:CommandField ShowEditButton="true" ButtonType="Image" EditImageUrl="Image/edit.png" UpdateImageUrl="Image/accept.png" CancelImageUrl="Image/cancel.png" HeaderText="Edit" />
+                    <asp:CommandField ShowDeleteButton="true" ButtonType="Image" DeleteImageUrl="Image/delete.png" HeaderText="Delete" />
+                </Columns>
+            </asp:GridView>
         </div>
+    </div>
+
+
+
 </asp:Content>
