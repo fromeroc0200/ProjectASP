@@ -20,18 +20,19 @@
 
                         </div>
                         <div class="card-body">
-                            <form action="" method="">
+                            <form>
                                 <div class="form-group row">
-                                    <label for="userName" class="col-md-4 col-form-label text-md-right">User Name</label>
+                                    <label for="txtUserName" class="col-md-4 col-form-label text-md-right">User Name</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="txtUserName" class="form-control" name="userName" required autofocus>
+                                        <asp:TextBox id="txtUserName" placeholder="User Name" class="form-control" runat="server" required="required"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                    <label for="txtPassword" class="col-md-4 col-form-label text-md-right">Password</label>
                                     <div class="col-md-6">
-                                        <input type="password" id="txtPassword" class="form-control" name="password">
+                                        <asp:TextBox id="txtPassword" placeholder="Password" TextMode="Password" class="form-control" runat="server" required="required" />
+                                       
                                     </div>
                                 </div>
 
@@ -47,9 +48,10 @@
                                 </div>
 
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="button" class="btn btn-primary" onclick="login()">
+                                    <asp:Button ID="btnLogin" class="btn btn-primary" Text="Login" runat="server" OnClick="btnLogin_Click" OnClientClick="return Validation()" />
+                                    <%--<button type="button" class="btn btn-primary" onclick="login()">
                                         Login
-                                    </button>
+                                    </button>--%>
                                     <a href="#" class="btn btn-link">Forgot Your Password?
                                     </a>
                                 </div>
@@ -62,6 +64,41 @@
             </div>
         </div>
     </main>
+  
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Login</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <asp:Label ID="lblMessage" runat="server" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        function showModal() {
+            $("#myModal").modal('show');
+        }
+
+        $(function () {
+            $("#btnShow").click(function () {
+                showModal();
+            });
+        });
+    </script>
+
     <script type="text/javascript">
         $("#txtUserName").on('keypress', function (e) {
             if (e.which == 13) {
@@ -74,56 +111,31 @@
             }
         });
     </script>
+    
 
+    <!--Validating Data-->
     <script type="text/javascript">
-        function login() {
-            /*Getting data*/
-            var usr = $('#txtUserName').val();
-            var pass = $('#txtPassword').val();
+
+        function Validation() {
+             /*Getting data*/
+            var usr = $("#<%=txtUserName.ClientID%>").val();
+            var pass = $("#<%=txtPassword.ClientID%>").val();
+            var result = true;
             if (usr === '' && pass === '') {
                 $('#lblError').text("Username and password must not be empty");
                 $(".alert").show();
-                return;
+                result = false;
             } else if (usr === '') {
                 $('#lblError').text("The username must not be empty");
                 $(".alert").show();
-                return;
+                result = false;
             } else if (pass === '') {
                 $('#lblError').text("The password must not be empty");
                 $(".alert").show();
-                return;
+                result = false;
             }
-
-
-
-            var url = "<%= ResolveClientUrl("~/Modules/Login/Login.aspx/LoginUser") %>";
-        $.ajax({
-            type: "POST",
-            url: url,
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify({ userName: usr, password: pass }),
-            async: true,
-            success: function (result) {
-                if (result.d.HasError) {
-                    $('#lblError').text("Invalid User Name/Password.");
-                    $(".alert").show();
-
-                } else {
-                    $(".alert").hide();
-                    window.location = '<%=ResolveUrl("~/Modules/Dashboard/Dashboard.aspx")%>';
-                    }
-
-
-
-                },
-                error: function (result) {
-                    alert('error occured: ' + result.responseText);
-                    /*alert(result.responseText);
-                    window.location.href = "FrmError.aspx?Exception=" + result.responseText;*/
-                },
-
-            });
+            return result;
         }
+
     </script>
 </asp:Content>

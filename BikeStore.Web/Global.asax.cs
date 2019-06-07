@@ -1,10 +1,9 @@
 ﻿
+
+using BikeStore.Service;
+using Microsoft.AspNet.WebFormsDependencyInjection.Unity;
+using Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
 
 namespace BikeStore.Web
 {
@@ -13,7 +12,10 @@ namespace BikeStore.Web
 
         protected void Application_Start(object sender, EventArgs e)
         {
-           
+            //UnityWebFormsStart.PostStart();
+            var container = this.AddUnity();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
+            //container.RegisterType<IMovieRepository, XmlMovieRepository>();
         }
 
         protected void Session_Start(object sender, EventArgs e)

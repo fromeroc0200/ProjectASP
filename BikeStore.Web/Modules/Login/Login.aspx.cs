@@ -16,42 +16,35 @@ namespace BikeStore.Web.Modules.Login
 {
     public partial class Login : System.Web.UI.Page
     {
-    
-        IUnitOfWork _unitOfWork { get; set; }
-        
+        IUnitOfWork _unitOfWork;
+        public Login(IUnitOfWork unitOfWork)
+        {
+            this._unitOfWork = unitOfWork;
+        }
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            // UnitOfWork unitOfWork = new UnitOfWork();
-            //UserModel usr = new UserModel()
-            // {
-            //     Name = "fer",
-            //     Password = "admin"};
-            // //var result =  unitOfWork.Users.Get();
-            //Response.Write(@"<script language='javascript'>alert('Message: \n" + "OK Process!" + " .');</script>");
-
+            txtUserName.Focus();
         }
 
-        public static Uri node;
-
-        //Nest Functions
-        public static ConnectionSettings settings;
-        public static ElasticClient client;
-        
-        [WebMethod]
-        public static ProcessResult<UserModel> LoginUser(string userName, string password)
+        protected void btnLogin_Click(object sender, EventArgs e)
         {
             ProcessResult<UserModel> result = new ProcessResult<UserModel>();
-            UnitOfWork unitOfWork = new UnitOfWork();
-
-            UserModel usr = new UserModel() { Name = userName, Password = password };
-            result = unitOfWork.Security.ValidateUser(usr);
-            if(!result.HasError)
+            UserModel user = new UserModel();
+            user.Name = txtUserName.Text;
+            user.Password = txtPassword.Text;
+            result = _unitOfWork.Security.ValidateUser(user);
+            if (!result.HasError)
             {
-                UserModel user = result.Content;
+                user = result.Content;
                 HttpContext.Current.Session["UserMembership"] = user;
+                Response.Redirect(ResolveUrl("~/Modules/Dashboard/Dashboard.aspx"));
             }
-
-            return result;
+            lblMessage.Text = "Users or Password are invalid!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "showModal();", true);
+            //Response.Write(@"<script language='javascript'>alert('Message: \n" + "Users or Password are invalid!" + " .');</script>");
         }
+
     }
 }

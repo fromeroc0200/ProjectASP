@@ -45,16 +45,6 @@
             border-color: #ddd;
         }
     </style>
-
- <%-- <script type="text/javascript">
-        $(function () {
-            $('[id*=grdProducts]').prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
-                "responsive": true,
-                "sPaginationType": "full_numbers"
-            });
-        });
-    </script>--%>
-   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row">
@@ -74,7 +64,6 @@
                 OnRowCancelingEdit="grdProducts_RowCancelingEdit"
                 OnRowDeleting="grdProducts_RowDeleting"
                 OnRowUpdating="grdProducts_RowUpdating">
-                <%--<asp:GridView ID="grdProducts" runat="server" AutoGenerateColumns="false" class="table table-striped">--%>
                 <Columns>
                     <asp:TemplateField HeaderText="S.No." ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>
@@ -107,24 +96,27 @@
                             <asp:TextBox ID="txtModelYear" runat="server" Text='<%#Eval("model_year") %>'></asp:TextBox>
                         </EditItemTemplate>
                     </asp:TemplateField>
-
-                    <%--<asp:TemplateField>
-                <ItemTemplate>
-                    <asp:LinkButton Text="Edit" runat = "server" CommandArgument='<%# Eval("product_id") %>' OnClick="btnEditProduct_Click" />
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <asp:LinkButton Text="Delete" runat = "server" CommandArgument='<%# Eval("product_id") %>' OnClick="btnDelProduct_Click" />
-                </ItemTemplate>
-            </asp:TemplateField>--%>
-                    <asp:CommandField ShowEditButton="true" ButtonType="Image" EditImageUrl="Image/edit.png" UpdateImageUrl="Image/accept.png" CancelImageUrl="Image/cancel.png" HeaderText="Edit" />
-                    <asp:CommandField ShowDeleteButton="true" ButtonType="Image" DeleteImageUrl="Image/delete.png" HeaderText="Delete" />
+                    <asp:CommandField ShowEditButton="true" ButtonType="Image" EditImageUrl="~/Assets/Content/images/Edit.ico" UpdateImageUrl="~/Assets/Content/images/Save.ico" CancelImageUrl="~/Assets/Content/images/Cancel.ico" HeaderText="Edit" ControlStyle-Width="24px" ControlStyle-Height="24px" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" />
+                    <asp:TemplateField HeaderText="Delete" ShowHeader="False" ItemStyle-HorizontalAlign="Center">
+                        <ItemTemplate>
+                            <span onclick="return confirm('Are you sure to Delete?')">
+                                <asp:ImageButton ImageUrl="~/Assets/Content/images/Delete.ico" ID="btnDelete" runat="server" CausesValidation="False" ControlStyle-Width="24px" ControlStyle-Height="24px"
+                                    CommandName="Delete" Text="Delete" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <%--<asp:CommandField ShowDeleteButton="true" ButtonType="Image" DeleteImageUrl="~/Assets/Content/images/Delete.ico" HeaderText="Delete" ControlStyle-Width="24px" ControlStyle-Height="24px" ItemStyle-HorizontalAlign="Center" OnClientClick="return confirm('Are you sure?');"/>--%>
                 </Columns>
+                <EditRowStyle BackColor="#ccccff" />
+                <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
             </asp:GridView>
+
         </div>
     </div>
-
-
-
 </asp:Content>
